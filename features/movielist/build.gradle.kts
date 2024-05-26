@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.navigation.compose.hilt)
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
+    implementation(libs.coil)
     ksp(libs.dagger.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

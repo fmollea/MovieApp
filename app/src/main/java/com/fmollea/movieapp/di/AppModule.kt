@@ -62,7 +62,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideMovieMapper(): MovieMapper {
-        return MovieMapper()
+        return MovieMapper(BuildConfig.BASE_IMAGE_URL)
     }
 
     @Singleton
