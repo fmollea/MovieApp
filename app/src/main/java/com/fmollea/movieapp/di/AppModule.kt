@@ -84,7 +84,7 @@ object AppModule {
     fun provideRemoteDataSource(
         movieApi: MovieApi
     ): RemoteDataSource {
-        return RemoteDataSource(movieApi)
+        return RemoteDataSource(movieApi, BuildConfig.API_KEY)
     }
 
     @Singleton

@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -53,6 +54,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.dagger.hilt)
+    implementation(libs.navigation.compose.hilt)
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
     ksp(libs.dagger.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

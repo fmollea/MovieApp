@@ -46,6 +46,7 @@ room-paging = { group = "androidx.room", name = "room-paging", version.ref = "ro
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
+navigation-compose-hilt = { group = "androidx.hilt", name = "hilt-navigation-compose", version = "1.2.0"}
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
 
 [plugins]
