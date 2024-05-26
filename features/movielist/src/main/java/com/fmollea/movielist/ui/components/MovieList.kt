@@ -9,11 +9,12 @@ import com.fmollea.domain.model.Movie
 @Composable
 fun MovieList(
     movies: List<Movie>,
+    onNavigateToDetail: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn {
         items(movies) {
-            MovieRow(movie = it)
+            MovieRow(movie = it, onNavigateToDetail = onNavigateToDetail)
         }
     }
 }

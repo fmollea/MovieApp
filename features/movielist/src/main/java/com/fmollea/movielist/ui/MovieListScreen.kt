@@ -19,6 +19,7 @@ import com.fmollea.movielist.viewmodel.MovieListViewModel
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun MovieListScreen(
+    onNavigateToDetail: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MovieListViewModel = hiltViewModel(),
 ) {
@@ -37,7 +38,7 @@ fun MovieListScreen(
             is MovieListState.Loading -> Loading()
             is MovieListState.Success -> {
                 val movies = (state as MovieListState.Success).movieList
-                MovieList(movies = movies)
+                MovieList(movies = movies, onNavigateToDetail = onNavigateToDetail)
             }
             is MovieListState.Error -> Text("erorr")
        }

@@ -83,6 +83,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.dagger.hilt)
+    implementation(project(":features:moviedetail"))
     ksp(libs.dagger.hilt.compiler)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)

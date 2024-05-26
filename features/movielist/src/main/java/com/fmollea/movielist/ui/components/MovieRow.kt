@@ -1,6 +1,7 @@
 package com.fmollea.movielist.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import com.fmollea.domain.model.Movie
 @Composable
 fun MovieRow(
     movie: Movie,
+    onNavigateToDetail: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -25,6 +27,7 @@ fun MovieRow(
           .fillMaxWidth()
           .height(200.dp)
           .padding(horizontal = 8.dp, vertical = 16.dp)
+          .clickable { onNavigateToDetail(movie.id) }
     ) {
         val painter: Painter = rememberAsyncImagePainter(model = movie.backdropPath)
         Image(
