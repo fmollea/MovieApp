@@ -9,12 +9,14 @@ import com.fmollea.domain.model.Movie
 @Composable
 fun MovieList(
     movies: List<Movie>,
+    genres: HashMap<Int, String>,
     onNavigateToDetail: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn {
         items(movies) {
-            MovieRow(movie = it, onNavigateToDetail = onNavigateToDetail)
+            val genre = genres.get(it.genreId) ?: ""
+            MovieRow(movie = it, genre = genre, onNavigateToDetail = onNavigateToDetail)
         }
     }
 }

@@ -3,8 +3,11 @@ package com.fmollea.movieapp.di
 import android.content.Context
 import androidx.room.Room
 import com.fmollea.data.local.LocalDataSource
+import com.fmollea.data.local.dao.GenreDao
 import com.fmollea.data.local.dao.MovieDao
 import com.fmollea.data.local.database.AppDataBase
+import com.fmollea.data.mapper.GenreEntityMapper
+import com.fmollea.data.mapper.GenreMapper
 import com.fmollea.data.mapper.MovieEntityMapper
 import com.fmollea.data.mapper.MovieMapper
 import com.fmollea.data.remote.RemoteDataSource
@@ -46,6 +49,12 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideGenreDao(database: AppDataBase): GenreDao {
+        return database.genreDao()
+    }
+
+    @Singleton
+    @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
@@ -73,10 +82,23 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideGenreMapper(): GenreMapper {
+        return GenreMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideGenreEntityMapper(): GenreEntityMapper {
+        return GenreEntityMapper()
+    }
+
+    @Singleton
+    @Provides
     fun provideLocalDataSource(
         movieDao: MovieDao,
+        genreDao: GenreDao
     ): LocalDataSource {
-        return LocalDataSource(movieDao)
+        return LocalDataSource(movieDao, genreDao)
     }
 
     @Singleton
@@ -93,8 +115,17 @@ object AppModule {
         remoteDataSource: RemoteDataSource,
         localDataSource: LocalDataSource,
         movieMapper: MovieMapper,
-        movieEntityMapper: MovieEntityMapper
+        movieEntityMapper: MovieEntityMapper,
+        genreMapper: GenreMapper,
+        genreEntityMapper: GenreEntityMapper
     ): MovieRepository {
-        return MovieRepositoryImpl(remoteDataSource, localDataSource, movieMapper, movieEntityMapper)
+        return MovieRepositoryImpl(
+            remoteDataSource = remoteDataSource,
+            localDataSource = localDataSource,
+            movieMapper = movieMapper,
+            movieEntityMapper = movieEntityMapper,
+            genreMapper = genreMapper,
+            genreEntityMapper = genreEntityMapper
+        )
     }
 }

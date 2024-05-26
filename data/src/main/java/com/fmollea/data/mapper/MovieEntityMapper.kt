@@ -4,9 +4,9 @@ import com.fmollea.data.local.entities.MovieEntity
 import com.fmollea.domain.model.Movie
 
 class MovieEntityMapper {
-    fun mapFromEntity(entity: MovieEntity): Movie {
+    private fun mapFromEntity(entity: MovieEntity): Movie {
         return Movie(
-            id = entity.id,
+            id = entity.remoteId,
             adult = entity.adult,
             backdropPath = entity.backdropPath,
             originalLanguage = entity.originalLanguage,
@@ -17,7 +17,8 @@ class MovieEntityMapper {
             title = entity.title,
             video = entity.video,
             voteAverage = entity.voteAverage,
-            voteCount = entity.voteCount
+            voteCount = entity.voteCount,
+            genreId = entity.genreId
         )
     }
 
@@ -27,7 +28,7 @@ class MovieEntityMapper {
 
     private fun mapToEntity(movie: Movie): MovieEntity {
         return MovieEntity(
-            id = movie.id,
+            remoteId = movie.id,
             adult = movie.adult,
             backdropPath = movie.backdropPath,
             originalLanguage = movie.originalLanguage,
@@ -38,7 +39,8 @@ class MovieEntityMapper {
             title = movie.title,
             video = movie.video,
             voteAverage = movie.voteAverage,
-            voteCount = movie.voteCount
+            voteCount = movie.voteCount,
+            genreId = movie.genreId
         )
     }
 

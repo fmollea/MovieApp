@@ -4,4 +4,5 @@ import com.fmollea.domain.model.Movie
 
 interface MovieRepository {
     suspend fun getMovies(): List<Movie>
+    suspend fun getGenres(): HashMap<Int, String>
 }

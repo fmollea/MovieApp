@@ -24,7 +24,8 @@ class MovieMapper @Inject constructor(
             title = response.title,
             video = response.video,
             voteAverage = response.voteAverage,
-            voteCount = response.voteCount
+            voteCount = response.voteCount,
+            genreId = response.genreIds.first()
         )
     }
 

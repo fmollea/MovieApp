@@ -25,10 +25,12 @@ fun MovieListScreen(
 ) {
 
     LaunchedEffect(Unit) {
+        viewModel.getGenres()
         viewModel.getMovieList()
     }
 
     val state by viewModel.state.collectAsState()
+    val genres by viewModel.genresState.collectAsState()
 
     Box(
         modifier = modifier.fillMaxSize(),
@@ -38,7 +40,11 @@ fun MovieListScreen(
             is MovieListState.Loading -> Loading()
             is MovieListState.Success -> {
                 val movies = (state as MovieListState.Success).movieList
-                MovieList(movies = movies, onNavigateToDetail = onNavigateToDetail)
+                MovieList(
+                    movies = movies,
+                    genres = genres,
+                    onNavigateToDetail = onNavigateToDetail
+                )
             }
             is MovieListState.Error -> Text("erorr")
        }
