@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 interface MovieApi{
     @GET("movie/popular")
-    suspend fun getMovies(@Query("api_key") apiKey: String): MovieListResponse
+    suspend fun getMovies(@Query("api_key") apiKey: String, @Query("page") page: Int): MovieListResponse
     @GET("genre/movie/list")
     suspend fun getGenresMovies(@Query("api_key") apiKey: String): GenresListResponse
 }

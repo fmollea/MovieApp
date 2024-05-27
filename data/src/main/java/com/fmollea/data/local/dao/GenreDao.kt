@@ -8,7 +8,7 @@ import com.fmollea.data.local.entities.GenreEntity
 
 @Dao
 interface GenreDao {
-    @Query("SELECT * FROM genres ORDER BY id ASC")
+    @Query("SELECT * FROM genres")
     fun getGenres(): List<GenreEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

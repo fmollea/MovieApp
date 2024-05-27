@@ -7,6 +7,6 @@ class RemoteDataSource @Inject constructor(
     private val api: MovieApi,
     private val apiKey: String
 ) {
-    suspend fun getMovies() = api.getMovies(apiKey)
+    suspend fun getMovies(page: Int) = api.getMovies(apiKey, page)
     suspend fun getGenres() = api.getGenresMovies(apiKey)
 }

@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
     implementation(libs.coil)
+    implementation(libs.paging.compose)
+    implementation(libs.paging.runtime)
     ksp(libs.dagger.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

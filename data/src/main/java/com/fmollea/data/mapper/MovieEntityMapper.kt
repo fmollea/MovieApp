@@ -4,7 +4,7 @@ import com.fmollea.data.local.entities.MovieEntity
 import com.fmollea.domain.model.Movie
 
 class MovieEntityMapper {
-    private fun mapFromEntity(entity: MovieEntity): Movie {
+    fun mapFromEntity(entity: MovieEntity): Movie {
         return Movie(
             id = entity.remoteId,
             adult = entity.adult,
@@ -20,10 +20,6 @@ class MovieEntityMapper {
             voteCount = entity.voteCount,
             genreId = entity.genreId
         )
-    }
-
-    fun mapFromEntityList(entities: List<MovieEntity>): List<Movie> {
-        return entities.map { mapFromEntity(it) }
     }
 
     private fun mapToEntity(movie: Movie): MovieEntity {
