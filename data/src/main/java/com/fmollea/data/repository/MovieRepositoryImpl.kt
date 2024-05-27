@@ -8,10 +8,12 @@ import androidx.paging.map
 import com.fmollea.data.local.LocalDataSource
 import com.fmollea.data.mapper.GenreEntityMapper
 import com.fmollea.data.mapper.GenreMapper
+import com.fmollea.data.mapper.MovieDetailMapper
 import com.fmollea.data.mapper.MovieEntityMapper
 import com.fmollea.data.remote.RemoteDataSource
 import com.fmollea.data.remotemediator.MovieRemoteMediator
 import com.fmollea.domain.model.Movie
+import com.fmollea.domain.model.MovieDetail
 import com.fmollea.domain.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -26,7 +28,8 @@ class MovieRepositoryImpl @Inject constructor(
     private val movieRemoteMediator: MovieRemoteMediator,
     private val movieEntityMapper: MovieEntityMapper,
     private val genreMapper: GenreMapper,
-    private val genreEntityMapper: GenreEntityMapper
+    private val genreEntityMapper: GenreEntityMapper,
+    private val movieDetailMapper: MovieDetailMapper
 ) : MovieRepository {
 
     override fun getMovies(): Flow<PagingData<Movie>> {
@@ -48,13 +51,21 @@ class MovieRepositoryImpl @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val genreResponse = remoteDataSource.getGenres()
-                val genreMap = genreMapper.mapFromResponse(genreResponse)
-                localDataSource.insertGenres(genreEntityMapper.mapToEntityList(genreMap))
-                genreMap
+                val genre = genreMapper.mapFromResponse(genreResponse)
+                localDataSource.insertGenres(genreEntityMapper.mapToEntityList(genre))
+                genre
             } catch (e: Exception) {
                 val genreEntities = localDataSource.getGenres()
                 genreEntityMapper.mapFromGenreList(genreEntities)
             }
+        }
+    }
+
+    override suspend fun getMovieDetail(movieId: Int): MovieDetail {
+        return withContext(Dispatchers.IO) {
+            val response = remoteDataSource.getMovieDetail(movieId)
+            val movieDetail = movieDetailMapper.mapFromResponse(response)
+            movieDetail
         }
     }
 }

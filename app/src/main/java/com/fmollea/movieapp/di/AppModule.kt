@@ -8,6 +8,7 @@ import com.fmollea.data.local.dao.MovieDao
 import com.fmollea.data.local.database.AppDataBase
 import com.fmollea.data.mapper.GenreEntityMapper
 import com.fmollea.data.mapper.GenreMapper
+import com.fmollea.data.mapper.MovieDetailMapper
 import com.fmollea.data.mapper.MovieEntityMapper
 import com.fmollea.data.mapper.MovieMapper
 import com.fmollea.data.remote.RemoteDataSource
@@ -95,6 +96,12 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideMovieDetailMapper(): MovieDetailMapper {
+        return MovieDetailMapper(BuildConfig.BASE_IMAGE_URL)
+    }
+
+    @Singleton
+    @Provides
     fun provideLocalDataSource(
         appDataBase: AppDataBase,
         movieDao: MovieDao,
@@ -119,7 +126,8 @@ object AppModule {
         movieRemoteMediator: MovieRemoteMediator,
         movieEntityMapper: MovieEntityMapper,
         genreMapper: GenreMapper,
-        genreEntityMapper: GenreEntityMapper
+        genreEntityMapper: GenreEntityMapper,
+        movieDetailMapper: MovieDetailMapper
     ): MovieRepository {
         return MovieRepositoryImpl(
             remoteDataSource = remoteDataSource,
@@ -127,7 +135,8 @@ object AppModule {
             movieRemoteMediator = movieRemoteMediator,
             movieEntityMapper = movieEntityMapper,
             genreMapper = genreMapper,
-            genreEntityMapper = genreEntityMapper
+            genreEntityMapper = genreEntityMapper,
+            movieDetailMapper = movieDetailMapper
         )
     }
 

@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
     implementation(libs.coil)
+    implementation(libs.constraint.layout.compose)
     ksp(libs.dagger.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
