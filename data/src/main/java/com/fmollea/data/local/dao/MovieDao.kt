@@ -1,5 +1,6 @@
 package com.fmollea.data.local.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,7 +11,7 @@ import com.fmollea.data.local.entities.MovieEntity
 interface MovieDao {
 
     @Query("SELECT * FROM movies ORDER BY id ASC")
-    fun getMovies(): List<MovieEntity>
+    fun getMovies(): PagingSource<Int, MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovies(movie: List<MovieEntity>)

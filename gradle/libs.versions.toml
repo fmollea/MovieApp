@@ -19,6 +19,7 @@ composeNavigation = "2.8.0-alpha08"
 serialization = "1.6.3"
 navCompose = "1.2.0"
 coil = "2.6.0"
+pagination = "3.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -51,6 +52,8 @@ navigation-compose = { module = "androidx.navigation:navigation-compose", versio
 navigation-compose-hilt = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "navCompose"}
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
+paging-runtime = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "pagination" }
+paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "pagination" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

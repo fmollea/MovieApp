@@ -2,10 +2,13 @@ package com.fmollea.movielist.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.fmollea.domain.model.Movie
 import com.fmollea.domain.usecase.GetGenresUseCase
 import com.fmollea.domain.usecase.GetMovieListUseCase
-import com.fmollea.movielist.state.MovieListState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -17,23 +20,10 @@ class MovieListViewModel @Inject constructor(
     private val genresUseCase: GetGenresUseCase
 ) : ViewModel() {
 
-    private val _state =  MutableStateFlow<MovieListState>(MovieListState.Loading)
-    val state = _state.asStateFlow()
-
     private val _genresState = MutableStateFlow<HashMap<Int, String>>(hashMapOf())
     val genresState = _genresState.asStateFlow()
 
-    fun getMovieList() {
-        viewModelScope.launch {
-            _state.value = MovieListState.Loading
-            try {
-                val movies = movieListUseCase.invoke()
-                _state.value = MovieListState.Success(movies)
-            } catch (e: Exception) {
-                _state.value = MovieListState.Error(e.message ?: "Unknown Error")
-            }
-        }
-    }
+    val movies: Flow<PagingData<Movie>> = movieListUseCase.invoke().cachedIn(viewModelScope)
 
     fun getGenres() {
         viewModelScope.launch {

@@ -12,6 +12,7 @@ import com.fmollea.data.mapper.MovieEntityMapper
 import com.fmollea.data.mapper.MovieMapper
 import com.fmollea.data.remote.RemoteDataSource
 import com.fmollea.data.remote.api.MovieApi
+import com.fmollea.data.remotemediator.MovieRemoteMediator
 import com.fmollea.data.repository.MovieRepositoryImpl
 import com.fmollea.domain.repository.MovieRepository
 import com.fmollea.movieapp.BuildConfig
@@ -95,10 +96,11 @@ object AppModule {
     @Singleton
     @Provides
     fun provideLocalDataSource(
+        appDataBase: AppDataBase,
         movieDao: MovieDao,
         genreDao: GenreDao
     ): LocalDataSource {
-        return LocalDataSource(movieDao, genreDao)
+        return LocalDataSource(dataBase = appDataBase, movieDao = movieDao, genreDao = genreDao)
     }
 
     @Singleton
@@ -114,7 +116,7 @@ object AppModule {
     fun provideMovieRepository(
         remoteDataSource: RemoteDataSource,
         localDataSource: LocalDataSource,
-        movieMapper: MovieMapper,
+        movieRemoteMediator: MovieRemoteMediator,
         movieEntityMapper: MovieEntityMapper,
         genreMapper: GenreMapper,
         genreEntityMapper: GenreEntityMapper
@@ -122,10 +124,26 @@ object AppModule {
         return MovieRepositoryImpl(
             remoteDataSource = remoteDataSource,
             localDataSource = localDataSource,
-            movieMapper = movieMapper,
+            movieRemoteMediator = movieRemoteMediator,
             movieEntityMapper = movieEntityMapper,
             genreMapper = genreMapper,
             genreEntityMapper = genreEntityMapper
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideRemoteMediator(
+        remoteDataSource: RemoteDataSource,
+        localDataSource: LocalDataSource,
+        movieMapper: MovieMapper,
+        movieEntityMapper: MovieEntityMapper,
+    ): MovieRemoteMediator {
+        return MovieRemoteMediator(
+            remoteDataSource = remoteDataSource,
+            localDataSource = localDataSource,
+            movieMapper = movieMapper,
+            movieEntityMapper = movieEntityMapper
         )
     }
 }
