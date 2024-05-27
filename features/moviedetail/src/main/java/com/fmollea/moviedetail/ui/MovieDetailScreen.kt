@@ -19,9 +19,11 @@ fun MovieDetailScreen(
 ) {
     LaunchedEffect(Unit) {
         viewModel.getMovieDetail(movieId.toInt())
+        viewModel.isSubscribeMovie(movieId)
     }
 
     val movieDetailState by viewModel.movieDetailState.collectAsState()
+    val isSubscribe by viewModel.isSubscribeState.collectAsState()
 
     when (val state = movieDetailState) {
         is MovieDetailState.Loading -> {
@@ -33,6 +35,7 @@ fun MovieDetailScreen(
             val movieDetail = state.movieDetail
             MovieDetailContent(
                 movieDetail = movieDetail,
+                isSubscribe = isSubscribe,
                 onSubscribe = {
                     viewModel.subscribeMovie(movieDetail)
                 },

@@ -10,4 +10,8 @@ interface MovieRepository {
     fun getMovies(): Flow<PagingData<Movie>>
     suspend fun getGenres(): HashMap<Int, String>
     suspend fun getMovieDetail(movieId: Int): MovieDetail
+    suspend fun insertMovieDetail(movieDetail: MovieDetail)
+    suspend fun deleteMovieDetail(movieDetail: MovieDetail)
+    suspend fun getAllMovieDetail(): List<MovieDetail>
+    suspend fun isMovieDetailSaved(movieDetailId: Long): Boolean
 }

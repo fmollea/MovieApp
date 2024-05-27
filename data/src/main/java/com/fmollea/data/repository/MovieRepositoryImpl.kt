@@ -68,6 +68,33 @@ class MovieRepositoryImpl @Inject constructor(
             movieDetail
         }
     }
+
+    override suspend fun insertMovieDetail(movieDetail: MovieDetail) {
+        withContext(Dispatchers.IO) {
+            val entity = movieDetailMapper.toEntity(movieDetail)
+            localDataSource.insertMovieDetail(entity)
+        }
+    }
+
+    override suspend fun deleteMovieDetail(movieDetail: MovieDetail) {
+        withContext(Dispatchers.IO) {
+            val entity = movieDetailMapper.toEntity(movieDetail)
+            localDataSource.deleteMovieDetail(entity)
+        }
+    }
+
+    override suspend fun getAllMovieDetail(): List<MovieDetail> {
+        return withContext(Dispatchers.IO) {
+            val moviesDetailEntity = localDataSource.getAllMovieDetail()
+            moviesDetailEntity.map { movieDetailMapper.fromEntity(it) }
+        }
+    }
+
+    override suspend fun isMovieDetailSaved(movieDetailId: Long): Boolean {
+        return withContext(Dispatchers.IO) {
+            localDataSource.isMovieDetailSaved(movieDetailId)
+        }
+    }
 }
 
 private const val MOVIES_PER_PAGE = 20

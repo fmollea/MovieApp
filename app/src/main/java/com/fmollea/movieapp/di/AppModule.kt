@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.fmollea.data.local.LocalDataSource
 import com.fmollea.data.local.dao.GenreDao
 import com.fmollea.data.local.dao.MovieDao
+import com.fmollea.data.local.dao.MovieDetailDao
 import com.fmollea.data.local.database.AppDataBase
 import com.fmollea.data.mapper.GenreEntityMapper
 import com.fmollea.data.mapper.GenreMapper
@@ -57,6 +58,12 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideMovieDetailDao(database: AppDataBase): MovieDetailDao {
+        return database.movieDetailDao()
+    }
+
+    @Singleton
+    @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
@@ -105,9 +112,15 @@ object AppModule {
     fun provideLocalDataSource(
         appDataBase: AppDataBase,
         movieDao: MovieDao,
-        genreDao: GenreDao
+        genreDao: GenreDao,
+        movieDetailDao: MovieDetailDao
     ): LocalDataSource {
-        return LocalDataSource(dataBase = appDataBase, movieDao = movieDao, genreDao = genreDao)
+        return LocalDataSource(
+            dataBase = appDataBase,
+            movieDao = movieDao,
+            genreDao = genreDao,
+            movieDetailDao = movieDetailDao
+        )
     }
 
     @Singleton

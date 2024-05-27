@@ -24,10 +24,12 @@ fun MovieListScreen(
 
     LaunchedEffect(Unit) {
         viewModel.getGenres()
+        viewModel.getAllDetailMovies()
     }
 
     val movies = viewModel.movies.collectAsLazyPagingItems()
     val genres by viewModel.genresState.collectAsState()
+    val subscribeMovies by viewModel.moviesSubscribeState.collectAsState()
 
     Box(
         modifier = modifier.fillMaxSize(),
@@ -36,6 +38,7 @@ fun MovieListScreen(
         MovieList(
             movies = movies,
             genres = genres,
+            subscribeMovies = subscribeMovies,
             onNavigateToDetail = onNavigateToDetail
         )
    }

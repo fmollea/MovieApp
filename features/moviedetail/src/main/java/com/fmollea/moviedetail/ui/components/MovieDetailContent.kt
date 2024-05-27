@@ -24,6 +24,7 @@ import com.fmollea.domain.model.MovieDetail
 @Composable
 fun MovieDetailContent(
     movieDetail: MovieDetail,
+    isSubscribe: Boolean,
     onSubscribe: (MovieDetail) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -64,7 +65,11 @@ fun MovieDetailContent(
             Button(onClick = {
                 onSubscribe(movieDetail)
             }) {
-                Text(text = "Subscribe")
+                if (isSubscribe) {
+                    Text(text = "Unsubscribe")
+                } else {
+                    Text(text = "Subscribe")
+                }
             }
         }
         item {
